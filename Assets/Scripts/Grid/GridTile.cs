@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GridTile : MonoBehaviour
 {
-    [SerializeField] private Vector2 _tileCoordinate;
+    [SerializeField] private Vector2Int _tileCoordinate;
     
-    public Vector2 TileCoordinate { set => _tileCoordinate = value; get => _tileCoordinate; }
-}
+    public Vector2Int TileCoordinate { get => _tileCoordinate; }
+
+    public void Initiate (Vector2Int tileCoordinate)
+    {
+        _tileCoordinate = tileCoordinate;
+    }
+ }
