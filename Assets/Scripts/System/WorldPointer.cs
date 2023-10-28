@@ -27,7 +27,7 @@ public class WorldPointer : MonoBehaviour
 
             if (Physics.Raycast(mouseRay, out mouseHit, Mathf.Infinity, _characterLayer))
             {
-                Debug.Log($"{mouseHit.collider.gameObject.name}");
+                
             }
         }
     }

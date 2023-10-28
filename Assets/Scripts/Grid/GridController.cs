@@ -17,19 +17,9 @@ public class GridController : MonoBehaviour
     [SerializeField] private Vector2Int _mapSize;
     [SerializeField] private Vector2 _tileDistance;
 
-    [SerializeField] private Vector2Int _disableIndex = Vector2Int.zero;
-
     public void Start()
     {
         GenerateTiles();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _tiles[_disableIndex.x][_disableIndex.y].gameObject.SetActive(!_tiles[_disableIndex.x][_disableIndex.y].gameObject.activeSelf);
-        }
     }
 
     private void GenerateTiles()

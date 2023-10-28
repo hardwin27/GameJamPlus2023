@@ -17,7 +17,10 @@ public class FactionPlayerInput : MonoBehaviour
 
     private void Update()
     {
-        MouseClickHandler();
+        if (_playerFaction.IsActive)
+        {
+            MouseClickHandler();
+        }
     }
 
     private void MouseClickHandler()

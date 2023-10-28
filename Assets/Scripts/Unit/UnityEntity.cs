@@ -9,6 +9,9 @@ public class UnityEntity : MonoBehaviour, IHaveHealth
     [SerializeField] [ReadOnly] private int _currentHealth;
     [SerializeField] private int _maxHealth;
 
+    public delegate void UnitEntityEvent(GameObject gameObject);
+    public event UnitEntityEvent Died;
+
     public FactionSide Side { get => _factionSide; }
     
     public int CurrentHealth => _currentHealth;
@@ -47,5 +50,6 @@ public class UnityEntity : MonoBehaviour, IHaveHealth
     private void Die()
     {
         gameObject.SetActive(false);
+        Died?.Invoke(gameObject);
     }
 }
