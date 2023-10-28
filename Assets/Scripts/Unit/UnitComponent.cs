@@ -15,4 +15,26 @@ public class UnitComponent : MonoBehaviour
     public UnitCombat UnitCombat { get => _unitCombat; }
     public UnitActionPattern UnitActionPattern { get => _unitActionPattern; }
     public UnitTileDetector UnitTileDetector { get => _unitTileDetector; }
+
+    private void OnEnable()
+    {
+        if (UnitCombat != null)
+        {
+            UnitCombat.KillGained +=  UnitKilledHandler;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (UnitCombat != null)
+        {
+            UnitCombat.KillGained -= UnitKilledHandler;
+        }
+    }
+
+    private void UnitKilledHandler(IHaveHealth haveHealthComp)
+    {
+        UnityEntity.AddHealth(UnitCombat.OnKillHeal);
+        UnitMovement.MoveToPos(haveHealthComp.Owner.transform.position);
+    }
 }

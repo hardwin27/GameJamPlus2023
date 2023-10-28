@@ -12,6 +12,7 @@ public class GridController : MonoBehaviour
     [SerializeField] [ReadOnly] private List<Vector2Int> _highlightedCoordinate = new List<Vector2Int>();
 
     public List<List<Tile>> Tiles { get => _tiles; }
+    public List<Tile> HighlightedTiles { get => _highlightedTiles; }
 
     [SerializeField] private Vector2Int _mapSize;
     [SerializeField] private Vector2 _tileDistance;

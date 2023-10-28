@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FactionController : MonoBehaviour
 {
+    [SerializeField] private bool _isActive = false;
+    
     [SerializeField] private FactionSide _factionSide;
     
     [SerializeField] private List<UnitComponent> _factionUnits = new List<UnitComponent>();
@@ -15,9 +17,20 @@ public class FactionController : MonoBehaviour
     [SerializeField] private GridController _gridController;
 
     public FactionSide Side { get => _factionSide; }
+    public List<UnitComponent> FactionUnits = new List<UnitComponent>();
+
+    public UnitComponent SelectedUnit { get => _selectedUnit; }
+
+    public bool IsActive { set => _isActive = value; get => _isActive; }
+
 
     private const string UNIT_TAG = "Unit";
     private const string TILE_TAG = "Tile";
+
+    private void Awake()
+    {
+        _isActive = false;
+    }
 
     private void Start()
     {
@@ -71,7 +84,12 @@ public class FactionController : MonoBehaviour
         {
             if (_selectedUnit != null)
             {
-                CharacterActionAttack(unitComponent);
+                Vector2Int coordinate = unitComponent.UnitTileDetector.CurrentCoordinate;
+
+                if (_gridController.Tiles[coordinate.x][coordinate.y].IsHighlighted)
+                {
+                    CharacterActionAttack(unitComponent);
+                }
             }
         }
     }
@@ -113,7 +131,7 @@ public class FactionController : MonoBehaviour
         ResetState();
     }
 
-    private void ResetState()
+    public void ResetState()
     {
         _gridController.ClearHighlighted();
         _selectedGameObject = null;

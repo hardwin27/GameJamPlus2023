@@ -15,6 +15,10 @@ public class UnityEntity : MonoBehaviour, IHaveHealth
 
     public int MaxHealth => _maxHealth;
 
+    public bool IsAlive => CurrentHealth > 0;
+
+    public GameObject Owner => gameObject;
+
     public void Start()
     {
         InitializeHealth();
@@ -32,11 +36,16 @@ public class UnityEntity : MonoBehaviour, IHaveHealth
 
     public void AddHealth(int addedHealth)
     {
-        _currentHealth += addedHealth;
+        _currentHealth = Mathf.Clamp(_currentHealth + addedHealth, 0, MaxHealth);
         
-        if (_currentHealth <= 0 )
+        if (!IsAlive )
         {
-            gameObject.SetActive(false);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
     }
 }

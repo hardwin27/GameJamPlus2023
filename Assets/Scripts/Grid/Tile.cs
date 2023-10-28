@@ -12,6 +12,10 @@ public class Tile : MonoBehaviour
     [SerializeField] private Color _nomalColor;
     [SerializeField] private Color _highlightedColor;
 
+    [SerializeField] private TileObjectDetector _tileObjectDetector;
+
+    public TileObjectDetector TileObjectDetector { get => _tileObjectDetector; }
+
     public bool IsHighlighted { get => _isHighlighted; }
     public bool IsBlocked { get => _isBlocked; }
     

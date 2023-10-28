@@ -76,6 +76,69 @@ public class TargetPattern_Straight : TargetPattern
                     count--;
                 }
             }
+
+            if (_isDiagonal)
+            {
+                x = currentTile.x + 1;
+                y = currentTile.y + 1;
+                count = _patternLength;
+                while (x < availableTiles.Count && y < availableTiles[x].Count && count > 0)
+                {
+                    if (availableTiles[x][y].IsBlocked)
+                    {
+                        break;
+                    }
+                    targetableCoordinate.Add(new Vector2Int(x, y));
+                    x++;
+                    y++;
+                    count--;
+                }
+
+                x = currentTile.x - 1;
+                y = currentTile.y - 1;
+                count = _patternLength;
+                while (x >= 0 && y >= 0 && count > 0)
+                {
+                    if (availableTiles[x][y].IsBlocked)
+                    {
+                        break;
+                    }
+                    targetableCoordinate.Add(new Vector2Int(x, y));
+                    x--;
+                    y--;
+                    count--;
+                }
+
+                x = currentTile.x + 1;
+                y = currentTile.y - 1;
+                count = _patternLength;
+                while (x < availableTiles.Count && y >= 0 && count > 0)
+                {
+                    if (availableTiles[x][y].IsBlocked)
+                    {
+                        break;
+                    }
+                    targetableCoordinate.Add(new Vector2Int(x, y));
+                    x++;
+                    y--;
+                    count--;
+                }
+
+                x = currentTile.x - 1;
+                y = currentTile.y + 1;
+                count = _patternLength;
+                while (x >= 0 && y < availableTiles[x].Count && count > 0)
+                {
+                    if (availableTiles[x][y].IsBlocked)
+                    {
+                        break;
+                    }
+                    targetableCoordinate.Add(new Vector2Int(x, y));
+                    x--;
+                    y++;
+                    count--;
+                }
+            }
         }
 
         return targetableCoordinate;
