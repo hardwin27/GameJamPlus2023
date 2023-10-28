@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 4214928445524652823}
   - component: {fileID: 7229716677735427175}
   - component: {fileID: 5072270729876110043}
+  - component: {fileID: 732904055269200008}
   m_Layer: 3
   m_Name: Character
   m_TagString: Unit
@@ -317,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eda2bb1c3187ea438b7db847b019d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unityEntity: {fileID: 732904055269200008}
   _unitMovement: {fileID: 7229716677735427175}
   _unitActionPattern: {fileID: 5072270729876110043}
   _unitTileDetector: {fileID: 9166954939779921365}
@@ -345,3 +347,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetPattern: {fileID: 1175425474598077645}
+--- !u!114 &732904055269200008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6922589149521631237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126eec9cc19f64f42b23b1b74e9bb2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _factionSide: 0
+  _currentHealth: 0
+  _maxHealth: 3

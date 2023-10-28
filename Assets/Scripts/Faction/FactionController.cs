@@ -4,14 +4,33 @@ using UnityEngine;
 
 public class FactionController : MonoBehaviour
 {
+    [SerializeField] private FactionSide _factionSide;
+
+    [SerializeField] private List<UnitComponent> _factionUnits = new List<UnitComponent>();
+
     [SerializeField] [ReadOnly] private GameObject _selectedGameObject;
     [SerializeField] [ReadOnly] private UnitComponent _selectedUnit;
     [SerializeField] [ReadOnly] private Tile _selectedTile;
 
     [SerializeField] private GridController _gridController;
 
+    public FactionSide Side { get => _factionSide; }
+
     private const string UNIT_TAG = "Unit";
     private const string TILE_TAG = "Tile";
+
+    private void Start()
+    {
+        InitializeUnits();
+    }
+
+    private void InitializeUnits()
+    {
+        foreach(UnitComponent unitComponent in _factionUnits)
+        {
+            unitComponent.UnityEntity.SetFaction(Side);
+        }
+    }
 
     public void SelectObejct(GameObject newSelectedObject)
     {

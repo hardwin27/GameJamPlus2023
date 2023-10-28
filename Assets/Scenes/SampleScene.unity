@@ -9688,6 +9688,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374041188}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1374105026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4214928445524652823, guid: 902f014fe7cd34a418a236f1fa1c963b, type: 3}
+  m_PrefabInstance: {fileID: 743930832778886062}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eda2bb1c3187ea438b7db847b019d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1383044826
 GameObject:
   m_ObjectHideFlags: 0
@@ -10678,8 +10689,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1299a857ff692746b20bc7db14442dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _factionSide: 0
+  _factionUnits:
+  - {fileID: 1374105026}
   _selectedGameObject: {fileID: 0}
   _selectedUnit: {fileID: 0}
+  _selectedTile: {fileID: 0}
   _gridController: {fileID: 2068733542}
 --- !u!114 &1478706739
 MonoBehaviour:
@@ -14512,6 +14527,7 @@ MonoBehaviour:
   _tilePrefab: {fileID: 5817058476986107303, guid: 6b37dddf830681a488d5ebd86d9fafa9, type: 3}
   _gridTransform: {fileID: 2068733541}
   _highlightedTiles: []
+  _highlightedCoordinate: []
   _mapSize: {x: 10, y: 10}
   _tileDistance: {x: 1, y: 1}
   _disableIndex: {x: 0, y: 0}
