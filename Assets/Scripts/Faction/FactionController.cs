@@ -105,7 +105,21 @@ public class FactionController : MonoBehaviour
         {
             if (_selectedTile.IsHighlighted)
             {
-                CharacterActionMove();
+                if (_selectedTile.TileObjectDetector.ObjectInTile == null)
+                {
+                    CharacterActionMove();
+                }
+                else
+                {
+                    if (_selectedTile.TileObjectDetector.ObjectInTile.TryGetComponent(out UnitComponent unitComponent))
+                    {
+                        SelectObejct(unitComponent.gameObject);
+                    }
+                    else
+                    {
+                        ResetState();
+                    }
+                }
             }
         }
     }
@@ -118,7 +132,7 @@ public class FactionController : MonoBehaviour
         _gridController.HighlightTiles(highlightedCoordinates);
     }
 
-    //Temporary
+    //Temporary. Prolly should be handler by each unit (?) idk not sure
     private void CharacterActionMove()
     {
         _selectedUnit.UnitMovement.MoveToPos(_selectedTile.transform.position);

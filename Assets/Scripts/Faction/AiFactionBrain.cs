@@ -43,7 +43,8 @@ public class AiFactionBrain : MonoBehaviour
             {
                 int randTileInd = Random.Range(0, _gridController.HighlightedTiles.Count);
 
-                /*_factionController.SelectObejct(_gridController.HighlightedTiles[randTileInd])*/
+                _factionController.SelectObejct(_gridController.HighlightedTiles[randTileInd].gameObject);
+                _factionController.ResetState();
             }
             else
             {
