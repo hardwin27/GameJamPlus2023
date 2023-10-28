@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IHaveAttack
 {
-    public int Damage { set; get; }
-    public int AttackRange { set; get; }
+    public int Damage { get; }
+    /*public int AttackRange { set; get; }*/
 
 
 }

@@ -260,8 +260,9 @@ GameObject:
   - component: {fileID: 7229716677735427175}
   - component: {fileID: 5072270729876110043}
   - component: {fileID: 732904055269200008}
+  - component: {fileID: 4124206833205478485}
   m_Layer: 3
-  m_Name: Character
+  m_Name: Unit
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +284,7 @@ Transform:
   - {fileID: 1121777598147301090}
   - {fileID: 7690152003577644693}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4116655824602275259
 BoxCollider:
@@ -320,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unityEntity: {fileID: 732904055269200008}
   _unitMovement: {fileID: 7229716677735427175}
+  _unitCombat: {fileID: 4124206833205478485}
   _unitActionPattern: {fileID: 5072270729876110043}
   _unitTileDetector: {fileID: 9166954939779921365}
 --- !u!114 &7229716677735427175
@@ -362,3 +364,16 @@ MonoBehaviour:
   _factionSide: 0
   _currentHealth: 0
   _maxHealth: 3
+--- !u!114 &4124206833205478485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6922589149521631237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e4ac8859761514ebabb278b7553759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 1

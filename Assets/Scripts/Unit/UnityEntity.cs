@@ -27,7 +27,7 @@ public class UnityEntity : MonoBehaviour, IHaveHealth
 
     private void InitializeHealth()
     {
-        _maxHealth = _currentHealth;
+        _currentHealth = _maxHealth;
     }
 
     public void AddHealth(int addedHealth)
@@ -38,10 +38,5 @@ public class UnityEntity : MonoBehaviour, IHaveHealth
         {
             gameObject.SetActive(false);
         }
-    }
-
-    public void AddHealth(float addedHealth)
-    {
-        throw new System.NotImplementedException();
     }
 }

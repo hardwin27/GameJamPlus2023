@@ -7,5 +7,5 @@ public interface IHaveHealth
     public int CurrentHealth { get; }
     public int MaxHealth { get; }
 
-    public void AddHealth(float addedHealth);
+    public void AddHealth(int addedHealth);
 }

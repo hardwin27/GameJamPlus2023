@@ -5,7 +5,7 @@ using UnityEngine;
 public class FactionController : MonoBehaviour
 {
     [SerializeField] private FactionSide _factionSide;
-
+    
     [SerializeField] private List<UnitComponent> _factionUnits = new List<UnitComponent>();
 
     [SerializeField] [ReadOnly] private GameObject _selectedGameObject;
@@ -46,8 +46,7 @@ public class FactionController : MonoBehaviour
                 case UNIT_TAG:
                     if (_selectedGameObject.TryGetComponent(out UnitComponent unitComponent))
                     {
-                        _selectedUnit = unitComponent;
-                        UnitSelectedHandler();
+                        UnitSelectedHandler(unitComponent);
                     }
                     break;
                 case TILE_TAG:
@@ -61,17 +60,20 @@ public class FactionController : MonoBehaviour
         }
     }
 
-    private void UnitSelectedHandler()
+    private void UnitSelectedHandler(UnitComponent unitComponent)
     {
-        if (_selectedUnit == null)
+        if (unitComponent.UnityEntity.Side == Side)
         {
-            return;
+            _selectedUnit = unitComponent;
+            HighlightsUnitPattern();
         }
-
-        List<Vector2Int> highlightedCoordinates = _selectedUnit.UnitActionPattern.TargetPattern.GenerateTargetableTile(
-            _selectedUnit.UnitTileDetector.CurrentCoordinate,
-            _gridController.Tiles);
-        _gridController.HighlightTiles(highlightedCoordinates);
+        else
+        {
+            if (_selectedUnit != null)
+            {
+                CharacterActionAttack(unitComponent);
+            }
+        }
     }
 
     private void TileSelectedHandler()
@@ -85,16 +87,29 @@ public class FactionController : MonoBehaviour
         {
             if (_selectedTile.IsHighlighted)
             {
-                CharacterTakeAction();
+                CharacterActionMove();
             }
         }
     }
 
+    private void HighlightsUnitPattern()
+    {
+        List<Vector2Int> highlightedCoordinates = _selectedUnit.UnitActionPattern.TargetPattern.GenerateTargetableTile(
+            _selectedUnit.UnitTileDetector.CurrentCoordinate,
+            _gridController.Tiles);
+        _gridController.HighlightTiles(highlightedCoordinates);
+    }
+
     //Temporary
-    private void CharacterTakeAction()
+    private void CharacterActionMove()
     {
         _selectedUnit.UnitMovement.MoveToPos(_selectedTile.transform.position);
+        ResetState();
+    }
 
+    private void CharacterActionAttack(UnitComponent targetedUnit)
+    {
+        _selectedUnit.UnitCombat.Attack(targetedUnit.UnityEntity);
         ResetState();
     }
 
