@@ -30,10 +30,6 @@ public class FactionPlayerInput : MonoBehaviour
             if (Physics.Raycast(mouseRay, out mouseHit, Mathf.Infinity, _clickableLayer))
             {
                 _playerFaction.SelectObejct(mouseHit.collider.gameObject);
-                if (mouseHit.collider.gameObject.TryGetComponent(out GridTile tile))
-                {
-                    Debug.Log($"{tile.TileCoordinate}");
-                }
             }
         }
     }

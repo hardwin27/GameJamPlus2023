@@ -10679,6 +10679,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedGameObject: {fileID: 0}
+  _selectedUnit: {fileID: 0}
+  _gridController: {fileID: 2068733542}
 --- !u!114 &1478706739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14509,9 +14511,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilePrefab: {fileID: 5817058476986107303, guid: 6b37dddf830681a488d5ebd86d9fafa9, type: 3}
   _gridTransform: {fileID: 2068733541}
-  _tiles: []
+  _highlightedTiles: []
   _mapSize: {x: 10, y: 10}
   _tileDistance: {x: 1, y: 1}
+  _disableIndex: {x: 0, y: 0}
 --- !u!1 &2074355435
 GameObject:
   m_ObjectHideFlags: 0
@@ -15303,7 +15306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1076096379725096146, guid: 902f014fe7cd34a418a236f1fa1c963b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1076096379725096146, guid: 902f014fe7cd34a418a236f1fa1c963b, type: 3}
       propertyPath: m_LocalPosition.y
