@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
-    [SerializeField] private UnityEntity _unityEntity;
+    [SerializeField] private UnitEntity _unitEntity;
+    [SerializeField] private UnitVisual _unitVisual;
     [SerializeField] private UnitMovement _unitMovement;
     [SerializeField] private UnitCombat _unitCombat;
     [SerializeField] private UnitActionPattern _unitActionPattern;
     [SerializeField] private UnitTileDetector _unitTileDetector;
 
-    public UnityEntity UnityEntity { get => _unityEntity; }
+    public UnitEntity UnitEntity { get => _unitEntity; }
+    public UnitVisual UnitVisual { get => _unitVisual; }
     public UnitMovement UnitMovement { get => _unitMovement; }
     public UnitCombat UnitCombat { get => _unitCombat; }
     public UnitActionPattern UnitActionPattern { get => _unitActionPattern; }
@@ -34,7 +36,7 @@ public class UnitController : MonoBehaviour
 
     private void UnitKilledHandler(IHaveHealth haveHealthComp)
     {
-        UnityEntity.AddHealth(UnitCombat.OnKillHeal);
+        UnitEntity.AddHealth(UnitCombat.OnKillHeal);
         UnitMovement.MoveToPos(haveHealthComp.Owner.transform.position);
     }
 }

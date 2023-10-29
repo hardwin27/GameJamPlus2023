@@ -54,8 +54,8 @@ public class FactionController : MonoBehaviour
     {
         foreach(UnitController unitController in _factionUnits)
         {
-            unitController.UnityEntity.SetFaction(Side);
-            unitController.UnityEntity.Died += OnUnitDiedHandler;
+            unitController.UnitEntity.SetFaction(Side);
+            unitController.UnitEntity.Died += OnUnitDiedHandler;
         }
     }
 
@@ -106,7 +106,7 @@ public class FactionController : MonoBehaviour
 
     private void UnitSelectedHandler(UnitController unitController)
     {
-        if (unitController.UnityEntity.Side == Side)
+        if (unitController.UnitEntity.Side == Side)
         {
             _selectedUnit = unitController;
             HighlightsUnitPattern();
@@ -172,7 +172,7 @@ public class FactionController : MonoBehaviour
 
     private void CharacterActionAttack(UnitController targetedUnit)
     {
-        _selectedUnit.UnitCombat.Attack(targetedUnit.UnityEntity);
+        _selectedUnit.UnitCombat.Attack(targetedUnit.UnitEntity);
         EndFactionAction();
     }
 

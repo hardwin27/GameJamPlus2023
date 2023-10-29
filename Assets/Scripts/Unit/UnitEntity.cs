@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnityEntity : MonoBehaviour, IHaveHealth
+public class UnitEntity : MonoBehaviour, IHaveHealth
 {
     [SerializeField] private string _unitName;
 

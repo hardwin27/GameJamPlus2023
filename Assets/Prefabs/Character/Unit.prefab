@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 732904055269200008}
   - component: {fileID: 4124206833205478485}
   - component: {fileID: 2298904595968266020}
+  - component: {fileID: 1037575659475379776}
   m_Layer: 3
   m_Name: Unit
   m_TagString: Unit
@@ -320,7 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eda2bb1c3187ea438b7db847b019d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unityEntity: {fileID: 732904055269200008}
+  _unitEntity: {fileID: 732904055269200008}
+  _unitVisual: {fileID: 1037575659475379776}
   _unitMovement: {fileID: 7229716677735427175}
   _unitCombat: {fileID: 4124206833205478485}
   _unitActionPattern: {fileID: 5072270729876110043}
@@ -362,6 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126eec9cc19f64f42b23b1b74e9bb2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitName: 
   _factionSide: 0
   _currentHealth: 0
   _maxHealth: 3
@@ -406,3 +409,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1037575659475379776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6922589149521631237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831a6600f14c5564eba20aba3745f72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitSpriteRenderer: {fileID: 8223150807379971758}

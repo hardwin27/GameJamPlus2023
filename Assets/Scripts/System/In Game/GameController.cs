@@ -37,6 +37,11 @@ public class GameController : MonoBehaviour
         {
             _turnController.FactionWon += FactionWonHandler;
         }
+
+        if (_gameUiController != null)
+        {
+            _gameUiController.UnitChoiceSelected += NewUnitSelectedHandler;
+        }
     }
 
     private void OnDisable()
@@ -44,6 +49,11 @@ public class GameController : MonoBehaviour
         if (_turnController != null)
         {
             _turnController.FactionWon -= FactionWonHandler;
+        }
+
+        if (_gameUiController != null)
+        {
+            _gameUiController.UnitChoiceSelected -= NewUnitSelectedHandler;
         }
     }
 
@@ -73,12 +83,14 @@ public class GameController : MonoBehaviour
 
     private void OpeningStateHandler()
     {
-        _gameUiController.ShowUnitChoices(GenerateUnitChoices());
+        //Something?
+
+        SetState(GameState.Starting);
     }
 
     private void StartingStateHandler()
     {
-
+        _gameUiController.ShowUnitChoices(GenerateUnitChoices());
     }
 
     private void BattlingStateHandler()
@@ -137,5 +149,12 @@ public class GameController : MonoBehaviour
         }
 
         return unitChoices;
+    }
+
+    private void NewUnitSelectedHandler(UnitData newUnit)
+    {
+
+
+        SetState(GameState.Battling);
     }
 }

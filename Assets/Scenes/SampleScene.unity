@@ -1854,6 +1854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 351609518}
   - component: {fileID: 351609519}
+  - component: {fileID: 351609520}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -1888,10 +1889,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248ac42170e2df148a00963b9a1908b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _factionControllers:
-  - {fileID: 1478706738}
-  - {fileID: 1498049483}
+  _factions: []
   _currentFactionIndex: 0
+--- !u!114 &351609520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351609517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29ff350a370d2c43a6e45116a0456d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitDatas: []
 --- !u!1 &361193601
 GameObject:
   m_ObjectHideFlags: 0
@@ -11063,6 +11075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1299a857ff692746b20bc7db14442dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _factionName: 
   _isActive: 0
   _factionSide: 0
   _factionUnits:
@@ -11224,6 +11237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1299a857ff692746b20bc7db14442dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _factionName: 
   _isActive: 0
   _factionSide: 1
   _factionUnits:
