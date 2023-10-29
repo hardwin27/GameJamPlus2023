@@ -31,7 +31,26 @@ public class TurnController : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        ResetFactionTurn();
+    }
+
     private void Start()
+    {
+        
+    }
+
+    public void ResetFactionTurn()
+    {
+        _currentFactionIndex = 0;
+        foreach (FactionController faction in _factions)
+        {
+            faction.ResetFaction();
+        }
+    }
+
+    public void StartTurnSystem()
     {
         if (_factions.Count > 0)
         {

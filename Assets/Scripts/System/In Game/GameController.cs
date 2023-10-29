@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private TurnController _turnController;
     [SerializeField] private FactionController _winnerFaction;
     [SerializeField] private FactionController _playerfaction;
+    [SerializeField] private FactionController _enemyfaction;
+
 
     [SerializeField] private UnitDatabase _unitDatabase;
     [SerializeField] private LevelController _levelController;
@@ -90,6 +92,7 @@ public class GameController : MonoBehaviour
 
     private void StartingStateHandler()
     {
+        ResetBattle();
         _gameUiController.ShowUnitChoices(GenerateUnitChoices());
     }
 
@@ -106,6 +109,21 @@ public class GameController : MonoBehaviour
     private void ClosingStateHandler()
     {
 
+    }
+
+    private void ResetBattle()
+    {
+        ResetUnits();
+        _turnController.ResetFactionTurn();
+
+    }
+
+    private void ResetUnits()
+    {
+        foreach (Transform unitTransform in _unitParents.transform)
+        {
+            Destroy(unitTransform.gameObject);
+        }
     }
 
     private void FactionWonHandler(FactionController faction)
@@ -153,7 +171,7 @@ public class GameController : MonoBehaviour
 
     private void NewUnitSelectedHandler(UnitData newUnit)
     {
-
+        
 
         SetState(GameState.Battling);
     }

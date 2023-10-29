@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class UnitEntity : MonoBehaviour, IHaveHealth
 {
-    [SerializeField] private string _unitName;
-
     [SerializeField] [ReadOnly] private FactionSide _factionSide;
 
     [SerializeField] [ReadOnly] private int _currentHealth;
     [SerializeField] private int _maxHealth;
-
-    public string UnitName { get => _unitName; }
 
     public delegate void UnitEntityEvent(GameObject gameObject);
     public event UnitEntityEvent Died;
@@ -26,18 +22,19 @@ public class UnitEntity : MonoBehaviour, IHaveHealth
 
     public GameObject Owner => gameObject;
 
-    public void Start()
+    /*public void Start()
     {
         InitializeHealth();
-    }
+    }*/
 
     public void SetFaction(FactionSide factionSide)
     {
         _factionSide = factionSide;
     }
 
-    private void InitializeHealth()
+    public void InitializeHealth(int health)
     {
+        _maxHealth = health;
         _currentHealth = _maxHealth;
     }
 

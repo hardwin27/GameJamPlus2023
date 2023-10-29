@@ -9,7 +9,8 @@ public class FactionController : MonoBehaviour
     [SerializeField] private bool _isActive = false;
     
     [SerializeField] private FactionSide _factionSide;
-    
+
+    [SerializeField] private List<UnitData> _factionUnitPool = new List<UnitData>();
     [SerializeField] private List<UnitController> _factionUnits = new List<UnitController>();
 
     [SerializeField] [ReadOnly] private GameObject _selectedGameObject;
@@ -42,26 +43,41 @@ public class FactionController : MonoBehaviour
 
     private void Awake()
     {
-        _isActive = false;
+        ResetFaction();
     }
 
     private void Start()
     {
-        InitializeUnits();
+        /*InitializeUnits();*/
     }
 
-    private void InitializeUnits()
+
+    public void ResetFaction()
+    {
+        _isActive = false;
+        _factionUnits.Clear();
+    }
+
+
+    /*private void InitializeUnits()
     {
         foreach(UnitController unitController in _factionUnits)
         {
             unitController.UnitEntity.SetFaction(Side);
             unitController.UnitEntity.Died += OnUnitDiedHandler;
         }
+    }*/
+
+    public void AddUnitPool(UnitData unitData)
+    {
+        _factionUnitPool.Add(unitData);
     }
 
-    public void AddUnit(UnitController unit)
+    public void AddUnitOnField(UnitController unit)
     {
         _factionUnits.Add(unit);
+        unit.UnitEntity.SetFaction(Side);
+        unit.UnitEntity.Died += OnUnitDiedHandler;
     }
 
     private void SetSelectedObject(GameObject selectedGameObject)
@@ -76,10 +92,21 @@ public class FactionController : MonoBehaviour
         {
             _factionUnits.Remove(unitController);
 
+            
+
             if (_factionUnits.Count <= 0)
             {
                 FactionWipedOut?.Invoke(this);
             }
+        }
+    }
+
+    private void RemoveFromPool (UnitController removedUnit)
+    {
+        UnitData removedUnitData = null;
+        for (int ind = 0; ind < _factionUnitPool.Count; ind++)
+        {
+            
         }
     }
 

@@ -15,6 +15,11 @@ public class UnitCombat : MonoBehaviour, IHaveAttack
 
     public int Damage { get => _damage; }
 
+    public void InitializeCombat(int damage)
+    {
+        _damage = damage;
+    }
+
     public void Attack(IHaveHealth iHaveHealth)
     {
         iHaveHealth.AddHealth(-Damage);

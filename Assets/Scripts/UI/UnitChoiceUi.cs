@@ -15,9 +15,9 @@ public class UnitChoiceUi : MonoBehaviour
 
     public void SetUnit(UnitData unitData)
     {
-        _imgUnitSprite.sprite = unitData.UnitController.UnitVisual.UnitSprite;
-        _txtUnitName.text = unitData.UnitController.UnitEntity.UnitName;
-        _txtUnitAttack.text = unitData.UnitController.UnitCombat.Damage.ToString();
-        _txtUnitName.text = unitData.UnitController.UnitEntity.MaxHealth.ToString();
+        _imgUnitSprite.sprite = unitData.UnitSprite;
+        _txtUnitName.text = unitData.UnitName;
+        _txtUnitAttack.text = unitData.Damage.ToString();
+        _txtUnitName.text = unitData.Health.ToString();
     }
 }
