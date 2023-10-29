@@ -4,31 +4,38 @@ using UnityEngine;
 
 public class TurnController : MonoBehaviour
 {
-    [SerializeField] private List<FactionController> _factionControllers = new List<FactionController>();
+    [SerializeField] private List<FactionController> _factions= new List<FactionController>();
 
     [SerializeField] [ReadOnly] private int _currentFactionIndex;
 
+    public List<FactionController> Factions { get => _factions; }
+
+    public delegate void TurnControllerEvent(FactionController factionController);
+    public event TurnControllerEvent FactionWon;
+
     private void OnEnable()
     {
-        foreach (FactionController factionController in _factionControllers)
+        foreach (FactionController factionController in _factions)
         {
             factionController.FacitonActionEnded += FactionActionEndedHandler;
+            factionController.FactionWipedOut += FactionWipedHandler;
         }
     }
 
     private void OnDisable()
     {
-        foreach (FactionController factionController in _factionControllers)
+        foreach (FactionController factionController in _factions)
         {
             factionController.FacitonActionEnded -= FactionActionEndedHandler;
+            factionController.FactionWipedOut -= FactionWipedHandler;
         }
     }
 
     private void Start()
     {
-        if (_factionControllers.Count > 0)
+        if (_factions.Count > 0)
         {
-            _factionControllers[0].IsActive = true;
+            _factions[0].IsActive = true;
             _currentFactionIndex = 0;
         }
     }
@@ -42,10 +49,19 @@ public class TurnController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         _currentFactionIndex++;
-        if (_currentFactionIndex >= _factionControllers.Count)
+        if (_currentFactionIndex >= _factions.Count)
         {
             _currentFactionIndex = 0;
         }
-        _factionControllers[_currentFactionIndex].IsActive = true;
+        _factions[_currentFactionIndex].IsActive = true;
+    }
+
+    private void FactionWipedHandler(FactionController wipedFaction)
+    {
+        _factions.Remove(wipedFaction);
+        if (_factions.Count == 1)
+        {
+            FactionWon?.Invoke(_factions[0]);
+        }
     }
 }

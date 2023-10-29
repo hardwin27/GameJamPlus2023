@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitComponent : MonoBehaviour
+public class UnitController : MonoBehaviour
 {
     [SerializeField] private UnityEntity _unityEntity;
     [SerializeField] private UnitMovement _unitMovement;

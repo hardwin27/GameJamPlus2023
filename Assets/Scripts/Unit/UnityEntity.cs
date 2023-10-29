@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class UnityEntity : MonoBehaviour, IHaveHealth
 {
+    [SerializeField] private string _unitName;
+
     [SerializeField] [ReadOnly] private FactionSide _factionSide;
 
     [SerializeField] [ReadOnly] private int _currentHealth;
     [SerializeField] private int _maxHealth;
+
+    public string UnitName { get => _unitName; }
 
     public delegate void UnitEntityEvent(GameObject gameObject);
     public event UnitEntityEvent Died;

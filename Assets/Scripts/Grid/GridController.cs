@@ -22,6 +22,11 @@ public class GridController : MonoBehaviour
         GenerateTiles();
     }
 
+    public void GenerateLevel()
+    {
+
+    }
+
     private void GenerateTiles()
     {
         for (int x= 0; x < _mapSize.x; x++)

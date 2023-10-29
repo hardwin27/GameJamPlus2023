@@ -4,28 +4,38 @@ using UnityEngine;
 
 public class FactionController : MonoBehaviour
 {
+    [SerializeField] private string _factionName;
+
     [SerializeField] private bool _isActive = false;
     
     [SerializeField] private FactionSide _factionSide;
     
-    [SerializeField] private List<UnitComponent> _factionUnits = new List<UnitComponent>();
+    [SerializeField] private List<UnitController> _factionUnits = new List<UnitController>();
 
     [SerializeField] [ReadOnly] private GameObject _selectedGameObject;
-    [SerializeField] [ReadOnly] private UnitComponent _selectedUnit;
+    [SerializeField] [ReadOnly] private UnitController _selectedUnit;
     [SerializeField] [ReadOnly] private Tile _selectedTile;
 
     [SerializeField] private GridController _gridController;
 
+
+    public string FactionName { get => _factionName; }
     public FactionSide Side { get => _factionSide; }
 
-    public List<UnitComponent> FactionUnits { get => _factionUnits; }
+    public List<UnitController> FactionUnits { get => _factionUnits; }
 
-    public UnitComponent SelectedUnit { get => _selectedUnit; }
+    public UnitController SelectedUnit { get => _selectedUnit; }
 
     public bool IsActive { set => _isActive = value; get => _isActive; }
 
     public delegate void FactionControllerEvent();
     public event FactionControllerEvent FacitonActionEnded;
+
+    public delegate void FactionControllerSelfEvent(FactionController factionController);
+    public event FactionControllerSelfEvent FactionWipedOut;
+
+    public delegate void FactionControllerGameObjectEvent(GameObject param);
+    public event FactionControllerGameObjectEvent SelectedObjectChanged;
 
     private const string UNIT_TAG = "Unit";
     private const string TILE_TAG = "Tile";
@@ -42,30 +52,46 @@ public class FactionController : MonoBehaviour
 
     private void InitializeUnits()
     {
-        foreach(UnitComponent unitComponent in _factionUnits)
+        foreach(UnitController unitController in _factionUnits)
         {
-            unitComponent.UnityEntity.SetFaction(Side);
-            unitComponent.UnityEntity.Died += OnUnitDiedHandler;
+            unitController.UnityEntity.SetFaction(Side);
+            unitController.UnityEntity.Died += OnUnitDiedHandler;
         }
+    }
+
+    public void AddUnit(UnitController unit)
+    {
+        _factionUnits.Add(unit);
+    }
+
+    private void SetSelectedObject(GameObject selectedGameObject)
+    {
+        _selectedGameObject = selectedGameObject;
+        SelectedObjectChanged?.Invoke(_selectedGameObject);
     }
 
     private void OnUnitDiedHandler(GameObject diedObject)
     {
-        if (diedObject.TryGetComponent(out UnitComponent unitComponent))
+        if (diedObject.TryGetComponent(out UnitController unitController))
         {
-            _factionUnits.Remove(unitComponent);
+            _factionUnits.Remove(unitController);
+
+            if (_factionUnits.Count <= 0)
+            {
+                FactionWipedOut?.Invoke(this);
+            }
         }
     }
 
     public void SelectObejct(GameObject newSelectedObject)
     {
-        _selectedGameObject = newSelectedObject;
+        SetSelectedObject(newSelectedObject);
         switch (_selectedGameObject.tag)
         {
             case UNIT_TAG:
-                if (_selectedGameObject.TryGetComponent(out UnitComponent unitComponent))
+                if (_selectedGameObject.TryGetComponent(out UnitController unitController))
                 {
-                    UnitSelectedHandler(unitComponent);
+                    UnitSelectedHandler(unitController);
                 }
                 break;
             case TILE_TAG:
@@ -76,50 +102,24 @@ public class FactionController : MonoBehaviour
                 }
                 break;
         }
-
-        /*if (_selectedGameObject == null)
-        {
-            _selectedGameObject = newSelectedObject;  
-        }
-        else
-        {
-            _selectedGameObject = newSelectedObject;
-            Debug.Log($"_selectedGameObject.name: {_selectedGameObject.name}");
-            switch(_selectedGameObject.tag)
-            {
-                case UNIT_TAG:
-                    if (_selectedGameObject.TryGetComponent(out UnitComponent unitComponent))
-                    {
-                        UnitSelectedHandler(unitComponent);
-                    }
-                    break;
-                case TILE_TAG:
-                    if (_selectedGameObject.TryGetComponent(out Tile tile))
-                    {
-                        _selectedTile = tile;
-                        TileSelectedHandler();
-                    }
-                    break;
-            }
-        }*/
     }
 
-    private void UnitSelectedHandler(UnitComponent unitComponent)
+    private void UnitSelectedHandler(UnitController unitController)
     {
-        if (unitComponent.UnityEntity.Side == Side)
+        if (unitController.UnityEntity.Side == Side)
         {
-            _selectedUnit = unitComponent;
+            _selectedUnit = unitController;
             HighlightsUnitPattern();
         }
         else
         {
             if (_selectedUnit != null)
             {
-                Vector2Int coordinate = unitComponent.UnitTileDetector.CurrentCoordinate;
+                Vector2Int coordinate = unitController.UnitTileDetector.CurrentCoordinate;
 
                 if (_gridController.Tiles[coordinate.x][coordinate.y].IsHighlighted)
                 {
-                    CharacterActionAttack(unitComponent);
+                    CharacterActionAttack(unitController);
                 }
             }
         }
@@ -142,9 +142,9 @@ public class FactionController : MonoBehaviour
                 }
                 else
                 {
-                    if (_selectedTile.TileObjectDetector.ObjectInTile.TryGetComponent(out UnitComponent unitComponent))
+                    if (_selectedTile.TileObjectDetector.ObjectInTile.TryGetComponent(out UnitController unitController))
                     {
-                        SelectObejct(unitComponent.gameObject);
+                        SelectObejct(unitController.gameObject);
                     }
                     else
                     {
@@ -170,7 +170,7 @@ public class FactionController : MonoBehaviour
         EndFactionAction();
     }
 
-    private void CharacterActionAttack(UnitComponent targetedUnit)
+    private void CharacterActionAttack(UnitController targetedUnit)
     {
         _selectedUnit.UnitCombat.Attack(targetedUnit.UnityEntity);
         EndFactionAction();
@@ -179,7 +179,7 @@ public class FactionController : MonoBehaviour
     private void ResetState()
     {
         _gridController.ClearHighlighted();
-        _selectedGameObject = null;
+        SetSelectedObject(null);
         _selectedUnit = null;
         _selectedTile = null;
     }

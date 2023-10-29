@@ -20,7 +20,7 @@ public class AiFactionBrain : MonoBehaviour
     {
         if (_factionController.FactionUnits.Count > 0)
         {
-            List<UnitComponent> availableUnits = _factionController.FactionUnits;
+            List<UnitController> availableUnits = _factionController.FactionUnits;
 
             while (availableUnits.Count > 0)
             {
